@@ -38,27 +38,38 @@ static class MerkleTreeHelper
     /// (With high probability, all the lists will have length 1, but that's not a guarantee).
     private static int AllMerkleValuesHelper(Node node, Dictionary<int, List<Node>> nodes)
     {
+        if (node == null)
+        {
+            return 0;
+        }
+
         int valueHash = node.Value.GetHashCode();
 
         if (node.LeftChild == null && node.RightChild == null)
         {
+            AddOrCreateList(nodes, valueHash, node);
             return valueHash;
         }
 
-        int leftMerkle = node.LeftChild?.MerkleValue() ?? 0;
-        int rightMerkle = node.RightChild?.MerkleValue() ?? 0;
+        int leftMerkle = AllMerkleValuesHelper(node.LeftChild, nodes);
+        int rightMerkle = AllMerkleValuesHelper(node.RightChild, nodes);
 
-        int merkleTreeValue = (valueHash + leftMerkle + rightMerkle).GetHashCode();
+        // result is the combination of hashing this value with the subtree values
+        // (overflowing the integer is very likely, but it's okay because in this case we desire that behavior)
+        int derivedHash = (valueHash + leftMerkle + rightMerkle).GetHashCode();
+        AddOrCreateList(nodes, derivedHash, node);
+        return derivedHash;
+    }
 
-        if (nodes.TryGetValue(merkleTreeValue, out List<Node> nodesWithMerkleValue))
+    private static void AddOrCreateList<Tkey, Tval>(Dictionary<Tkey, List<Tval>> dict, Tkey key, Tval value)
+    {
+        if (dict.TryGetValue(key, out List<Tval> values))
         {
-            nodesWithMerkleValue.Add(node);
+            values.Add(value);
         }
         else
         {
-            nodes[merkleTreeValue] = new List<Node> { node };
+            dict[key] = new List<Tval> { value };
         }
-
-        return merkleTreeValue;
     }
 }

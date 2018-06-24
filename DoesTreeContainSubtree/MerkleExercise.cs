@@ -4,35 +4,20 @@ using System.Collections.Generic;
 
 namespace DoesTreeContainSubtree
 {
-    class Program
+    public class MerkleExercise
     {
-        static void Main(string[] args)
-        {
-            Node bigTreeRoot = TreeGenerator.GenerateTree(size: 50);
-            Node possibleSubtree = TreeGenerator.SubtreeLottery(bigTreeRoot);
-
-            if (IsSubtree(bigTreeRoot, possibleSubtree))
-            {
-                Console.WriteLine("It's a subtree!");
-            }
-            else
-            {
-                Console.WriteLine("NOT a subtree!");
-            }
-        }
-
         /// Given a bigger tree and smaller tree,
         /// return true iff the smaller tree is identical to a subtree in the bigger one.
-        static bool IsSubtree(Node bigTree, Node subTree)
+        public static bool IsSubtree(Node bigTree, Node subTree)
         {
             int merkleValue = subTree.MerkleValue();
 
             // Map the Merkle value of every subtree in the big tree.
             // The value is a List<Node> because two subtrees may have the same Merkle value (however unlikely).
-            var subTreeMerkleValues = new Dictionary<int, List<Node>>();
+            var bigTreeMerkleValues = bigTree.AllMerkleValues();
 
             List<Node> matchingNodes;
-            if (!subTreeMerkleValues.TryGetValue(merkleValue, out matchingNodes))
+            if (!bigTreeMerkleValues.TryGetValue(merkleValue, out matchingNodes))
             {
                 // The smaller tree's Merkle value never appeared in the big tree, so it's definitely not a subtree.
                 return false;
@@ -51,7 +36,7 @@ namespace DoesTreeContainSubtree
         }
 
         /// True iff treeA and treeB are identical trees.
-        static bool CompareTrees(Node treeA, Node treeB)
+        public static bool CompareTrees(Node treeA, Node treeB)
         {
             if (treeA == null && treeB == null)
             {

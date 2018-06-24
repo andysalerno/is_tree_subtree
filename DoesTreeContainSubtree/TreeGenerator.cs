@@ -89,8 +89,8 @@ public class TreeGenerator
     }
 
 
-    // Clones a random subtree from the parent...
-    // ...but it has a 50% chance to modify values and corrupt the subtree!
+    /// Clones a random subtree from the parent...
+    /// ...but it has a 50% chance to modify values and corrupt the subtree!
     public static Node SubtreeLottery(Node parentTree)
     {
         Node randomNode = PickRandomNode(parentTree);
@@ -99,7 +99,7 @@ public class TreeGenerator
 
         if (CoinFlip())
         {
-
+            FiddleWithTree(clonedTree);
         }
 
         return clonedTree;
@@ -107,7 +107,7 @@ public class TreeGenerator
 
 
     /// Picks a random node from the given root.
-    private static Node PickRandomNode(Node parentTree)
+    public static Node PickRandomNode(Node parentTree)
     {
         Node curNode = parentTree;
 
@@ -136,7 +136,8 @@ public class TreeGenerator
         return allNodes[randIndex];
     }
 
-    private static Node CloneTree(Node root)
+    /// Create a replica of the tree (deep copy).
+    public static Node CloneTree(Node root)
     {
         if (root == null)
         {
@@ -148,21 +149,21 @@ public class TreeGenerator
         Node leftCloned = CloneTree(root.LeftChild);
         Node rightCloned = CloneTree(root.RightChild);
 
-        clonedRoot.LeftChild = leftCloned;
-        clonedRoot.RightChild = rightCloned;
+        clonedRoot.SetLeftChild(leftCloned);
+        clonedRoot.SetRightChild(rightCloned);
 
         return clonedRoot;
     }
 
     /// Guaranteed to modify the tree in some way.
     /// Might change some node's value, or unlink children, etc.
-    private static void FiddleWithTree(Node root)
+    public static void FiddleWithTree(Node root)
     {
         Node randomNode = PickRandomNode(root);
 
         if (CoinFlip())
         {
-            randomNode.Value = -randomNode.Value;
+            randomNode.WithValue(-randomNode.Value);
         }
         else
         {
@@ -172,29 +173,43 @@ public class TreeGenerator
                 if (randomNode.LeftChild != null && randomNode.RightChild != null)
                 {
                     Node temp = randomNode.LeftChild;
-                    randomNode.LeftChild = randomNode.RightChild;
-                    randomNode.RightChild = temp;
+                    randomNode.SetLeftChild(randomNode.RightChild);
+                    randomNode.SetRightChild(temp);
                 }
 
                 // no children to swap, so instead add a rogue child
                 else
                 {
                     Node cuckoo = new Node().WithValue(random.Next());
-                    randomNode.LeftChild = cuckoo;
+                    randomNode.SetLeftChild(cuckoo);
                     // I have never been prouder of a variable name, btw
                 }
             }
 
-            // or unset one of them
+            // or unset one of them (...if it's set already)
             else
             {
                 if (CoinFlip())
                 {
-                    randomNode.LeftChild = null;
+                    if (randomNode.LeftChild != null)
+                    {
+                        randomNode.SetLeftChild(null);
+                    }
+                    else
+                    {
+                        randomNode.SetLeftChild(new Node().WithValue(random.Next()));
+                    }
                 }
                 else
                 {
-                    randomNode.RightChild = null;
+                    if (randomNode.RightChild != null)
+                    {
+                        randomNode.SetRightChild(null);
+                    }
+                    else
+                    {
+                        randomNode.SetRightChild(new Node().WithValue(random.Next()));
+                    }
                 }
             }
         }
