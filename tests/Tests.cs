@@ -47,13 +47,29 @@ namespace tests
         [Fact]
         public static void CanDetectSubtrees()
         {
-            Node bigTreeRoot = TreeGenerator.GenerateTree(size: 10);
+            const int treeSize = 500;
+            Node bigTreeRoot = TreeGenerator.GenerateTree(treeSize);
 
             Node randomBigTreeNode = TreeGenerator.PickRandomNode(bigTreeRoot);
 
             Node subtree = TreeGenerator.CloneTree(randomBigTreeNode);
 
             Assert.True(MerkleExercise.IsSubtree(bigTreeRoot, subtree));
+        }
+
+        [Fact]
+        public static void CanDetectFiddledSubtrees()
+        {
+            const int treeSize = 500;
+            Node bigTreeRoot = TreeGenerator.GenerateTree(treeSize);
+
+            Node randomBigTreeNode = TreeGenerator.PickRandomNode(bigTreeRoot);
+
+            Node subtree = TreeGenerator.CloneTree(randomBigTreeNode);
+
+            TreeGenerator.FiddleWithTree(subtree);
+
+            Assert.False(MerkleExercise.IsSubtree(bigTreeRoot, subtree));
         }
 
         private static int CountTreeNodes(Node root)
