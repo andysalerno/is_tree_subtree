@@ -1,0 +1,11 @@
+c:\git_repos\does_tree_contain_subtree\DoesTreeContainSubtree\bin\Debug\netcoreapp2.1\DoesTreeContainSubtree.deps.json
+c:\git_repos\does_tree_contain_subtree\DoesTreeContainSubtree\bin\Debug\netcoreapp2.1\DoesTreeContainSubtree.runtimeconfig.json
+c:\git_repos\does_tree_contain_subtree\DoesTreeContainSubtree\bin\Debug\netcoreapp2.1\DoesTreeContainSubtree.runtimeconfig.dev.json
+c:\git_repos\does_tree_contain_subtree\DoesTreeContainSubtree\bin\Debug\netcoreapp2.1\DoesTreeContainSubtree.dll
+c:\git_repos\does_tree_contain_subtree\DoesTreeContainSubtree\bin\Debug\netcoreapp2.1\DoesTreeContainSubtree.pdb
+c:\git_repos\does_tree_contain_subtree\DoesTreeContainSubtree\obj\Debug\netcoreapp2.1\DoesTreeContainSubtree.csprojAssemblyReference.cache
+c:\git_repos\does_tree_contain_subtree\DoesTreeContainSubtree\obj\Debug\netcoreapp2.1\DoesTreeContainSubtree.csproj.CoreCompileInputs.cache
+c:\git_repos\does_tree_contain_subtree\DoesTreeContainSubtree\obj\Debug\netcoreapp2.1\DoesTreeContainSubtree.AssemblyInfoInputs.cache
+c:\git_repos\does_tree_contain_subtree\DoesTreeContainSubtree\obj\Debug\netcoreapp2.1\DoesTreeContainSubtree.AssemblyInfo.cs
+c:\git_repos\does_tree_contain_subtree\DoesTreeContainSubtree\obj\Debug\netcoreapp2.1\DoesTreeContainSubtree.dll
+c:\git_repos\does_tree_contain_subtree\DoesTreeContainSubtree\obj\Debug\netcoreapp2.1\DoesTreeContainSubtree.pdb
